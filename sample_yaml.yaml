@@ -1,0 +1,22 @@
+---
+
+- hosts: group_name
+  ansible_ssh_user: root
+  become: yes
+
+  - name: our first task
+    apt:
+      name: vim
+      state: present
+
+  - name: our second task
+    service:
+      name: httpd
+      state: restarted
+
+# generally not a good practice to add other group of hosts in the same playbook
+- hosts: group_2
+  ansible_ssh_user: me
+  become: no
+
+  
