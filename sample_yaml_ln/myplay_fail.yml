@@ -1,0 +1,24 @@
+---
+- name: "My list of tasks"
+  hosts: groupA
+
+  tasks:
+   - name: "My Task 1"
+     debug:
+       msg: "This is my task 1"
+
+   - name: "My Task 2"
+     fail:
+       msg: "This is my task 2"
+
+- name: "My second list of tasks"
+  hosts: groupB
+  
+  tasks:
+   - name: "My Task 3"
+     debug:
+       msg: "This is my task 3"
+
+   - name: "My Task 4"
+     debug:
+       msg: "This is my task 4"
