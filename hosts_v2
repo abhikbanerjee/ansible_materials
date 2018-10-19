@@ -1,0 +1,20 @@
+ubuntu1 ansible_host=172.18.0.5
+ubuntu2 ansible_host=172.18.0.6
+centos1 ansible_host=172.18.0.3
+centos2 ansible_host=172.18.0.4
+
+[deb]
+ubuntu2
+ubuntu1
+
+[rpm]
+centos1
+centos2
+
+[dbservers]
+ubuntu2
+centos2
+
+[webservers]
+ubuntu1
+centos1

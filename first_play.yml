@@ -1,0 +1,9 @@
+---
+
+- hosts: deb
+
+  tasks:
+  - name: Install vim on ubuntu targets
+    apt:
+      name: vim
+      state: latest

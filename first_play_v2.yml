@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+
+  tasks:
+  - name: Install vim on ubuntu targets
+    apt:
+      name: vim
+      state: latest
+    when: ansible_os_family == "Debian"
+
+  - name: Install vim on RPM targets
+    yum:
+      name: vim
+      state: latest
+    when: ansible_os_family == "RedHat"
