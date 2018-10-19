@@ -1,0 +1,11 @@
+[group1]
+172.18.0.5
+172.18.0.6
+
+[group2]
+172.18.0.3
+172.18.0.4
+
+[nodes:children]
+group1
+group2
