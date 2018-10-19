@@ -1,0 +1,12 @@
+dbserver1 ansible_host=172.18.0.5 
+webserver1 ansible_host=172.18.0.6
+dbserver2 ansible_host=172.18.0.3
+webserver2 ansible_host=172.18.0.4
+
+[dbserveres]
+dbserver1
+dbserver2
+
+[webservers]
+webserver1
+webserver2

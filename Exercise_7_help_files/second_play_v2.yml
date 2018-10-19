@@ -1,0 +1,50 @@
+---
+
+- hosts: webservers
+  vars:
+    http_port: 80
+  remote_user: root
+
+  tasks:
+  - name: Install apache webserver deb
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_os_family == "Debian"
+
+  - name: Install apache webserver rpm
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_os_family == "RedHat"
+
+  - name: Start Apache Service (enable upon boot) deb
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_os_family == "Debian"
+
+  - name: Start apache Service (enable upon boot) rpm
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_os_family == "RedHat"
+
+- hosts: dbserver2
+  gather_facts: no
+
+  tasks:
+    - name: Install MongoDb
+      yum:
+        name: mongodb-server
+        state: present
+      notify:
+        - start mongodb
+
+  handlers:
+    - name: start mongodb
+      service: 
+        name: mongod
+        state: started

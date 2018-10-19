@@ -1,0 +1,76 @@
+---
+
+- hosts: webservers
+  vars:
+    http_port: 80
+  remote_user: root
+
+  tasks:
+  - name: Install apache webserver deb
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_os_family == "Debian"
+
+  - name: Install apache webserver rpm
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_os_family == "RedHat"
+
+  - name: Start Apache Service (enable upon boot) deb
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_os_family == "Debian"
+
+  - name: Start apache Service (enable upon boot) rpm
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_os_family == "RedHat"
+
+- hosts: dbserver2
+  gather_facts: no
+
+  tasks:
+    - name: Install MongoDb
+      yum:
+        name: mongodb-server
+        state: present
+      notify:
+        - start mongodb
+
+  handlers:
+    - name: start mongodb
+      service: 
+        name: mongod
+        state: started
+
+- hosts: dbserver1
+  gather_facts: False
+
+  tasks:
+      - name: Install MySQL
+        apt:
+          update_cache: yes
+          name: mysql-server
+          state: latest
+
+      - name: Get MySQL status
+        shell: service mysql status >> ~/mysqlstats.txt
+        args:
+          warn: no
+        ignore_errors: yes
+        tags:
+          - mysqlstatus
+
+      - name: Deliver MySQL Status
+        fetch:
+          src: ~/mysqlstats.txt
+          dest: /etc/ansible/fetchedfiles
+          flat: yes
+        tags:
+          - mysqlstatus
