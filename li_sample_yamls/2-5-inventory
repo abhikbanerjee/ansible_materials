@@ -1,8 +1,12 @@
 [all]
-web1 ansible_ssh_host=web1.kumulus.co
-web2 ansible_ssh_host=web2.kumulus.co
-db1 ansible_ssh_host=db1.kumulus.co
-db2 ansible_ssh_host=db2.kumulus.co
+#web1 ansible_ssh_host=web1.kumulus.co
+#web2 ansible_ssh_host=web2.kumulus.co
+#db1 ansible_ssh_host=db1.kumulus.co
+#db2 ansible_ssh_host=db2.kumulus.co
+web1 ansible_ssh_host=172.19.0.4
+web2 ansible_ssh_host=172.19.0.2
+db1 ansible_ssh_host=172.19.0.5
+db2 ansible_ssh_host=172.19.0.3
 [web]
 web1
 web2
